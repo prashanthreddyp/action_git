@@ -7,7 +7,7 @@ on :
 jobs :
   build:
     name : mosaic components   
-    runs-on : ubuntu-leteat
+    runs-on : ubuntu-latest
     steps :
       - uses : actions/checkout@v2
       - name : checking out...
