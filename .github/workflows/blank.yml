@@ -2,8 +2,8 @@ on :
     push :
       branches : 
         - master
-      paths :
-        - packages/mosaic-components	  
+      #paths :
+      #  - packages/mosaic-components	  
 jobs :
   build:
     name : mosaic components   
