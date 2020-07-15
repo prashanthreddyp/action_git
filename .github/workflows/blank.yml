@@ -13,9 +13,9 @@ jobs:
     - name: npm build
       run: |
       command: ["/bin/sh","-c"]
-      args: [ sh '''jq \'del(.devDependencies.cypress)\' package.json > _.json && mv _.json package.json 
-        npm inatall
-        npm run build
-        npm run storybook:build'''
+    #  args: [ sh '''jq \'del(.devDependencies.cypress)\' package.json > _.json && mv _.json package.json 
+    #    npm inatall
+     #   npm run build
+      #  npm run storybook:build'''
            
           
