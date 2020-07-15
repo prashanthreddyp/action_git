@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v1
     - name: npm build
       shell: bash
-      run: |
+      run: >
         sh '''jq \'del(.devDependencies.cypress)\' package.json > _.json && mv _.json package.json 
         npm inatall
         npm run build
