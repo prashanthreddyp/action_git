@@ -2,8 +2,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - action_git
 jobs:
   node-package:
     runs-on: ubuntu-latest
