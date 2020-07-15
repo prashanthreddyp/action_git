@@ -2,7 +2,7 @@
 on:
   push:
     branches:
-      - devops         
+      - dev   
 
 jobs:
   node-package:
