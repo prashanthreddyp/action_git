@@ -1,20 +1,19 @@
-name: Greet Everyone
-# This workflow is triggered on pushes to the repository.
-on: [push]
-
+on:
+  push:
+    branches:
+      - master
 jobs:
-  build:
-    # Job name is Greeting
-    name: Greeting
-    # This job runs on Linux
+  node-package:
     runs-on: ubuntu-latest
     steps:
-      # This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action
-      - name: Hello world
-        uses: actions/hello-world-javascript-action@v1
-        with:
-          who-to-greet: 'Mona the Octocat'
-        id: hello
-      # This step prints an output (time) from the previous step's action.
-      - name: Echo the greeting's time
-        run: echo 'The time was ${{ steps.hello.outputs.time }}.'
+    - name: Checkout code
+      uses: actions/checkout@v1
+    - name: Setup Node.js 
+      uses: actions/setup-node@v2.1.0
+    - name: npm build
+     # working-directory:  ./src
+      run: |
+        jq \'del(.devDependencies.cypress)\' package.json > _.json && mv _.json package.json 
+        npm inatall
+        npm run build
+        npm run storybook:build
