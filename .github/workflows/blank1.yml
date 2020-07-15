@@ -2,8 +2,7 @@ on:
   push:
     branches:
       - devops
-    paths : 
-      - packages/mosaic-components           
+         
 
 jobs:
   node-package:
@@ -11,7 +10,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v1
+    - name: Setup Node.js 
+      uses: actions/setup-node@v2.1.0
     - name: npm build
+      working-directory:  ./src
       run: |
         sh '''jq \'del(.devDependencies.cypress)\' package.json > _.json && mv _.json package.json 
         npm inatall
