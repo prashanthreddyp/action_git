@@ -1,9 +1,8 @@
 on:
   push:
     branches:
-      - devops
-    paths: 
-      - package/mosaic-components     
+      - master
+    
 
 jobs:
   node-package:
