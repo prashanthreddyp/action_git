@@ -15,6 +15,9 @@ jobs:
           npm install
           npx cypress run --parallel --record --key h5ysqc
           echo 'job completed'
+          
+---	  
+	  
 		  
            
           
