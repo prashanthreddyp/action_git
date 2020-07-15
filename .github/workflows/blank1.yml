@@ -15,6 +15,6 @@ jobs:
      # working-directory:  ./src
       run: |
         #jq 'del(.devDependencies)' package.json > _.json && mv _.json package.json 
-        npm inatall
+        npm install
         npm run build
         npm run storybook:build
