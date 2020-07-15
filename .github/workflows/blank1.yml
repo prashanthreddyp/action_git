@@ -2,7 +2,8 @@ on:
   push:
     branches:
       - devops
-         
+    paths: 
+      - package/mosaic-components     
 
 jobs:
   node-package:
@@ -19,3 +20,4 @@ jobs:
         npm inatall
         npm run build
         npm run storybook:build'''
+---
