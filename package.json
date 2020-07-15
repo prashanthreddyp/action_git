@@ -1,0 +1,13 @@
+"devDependencies": {
+    "@normal/browser-detect": "file:../browser-detect",
+    "@normal/component-mosaic-table": "file:../component-table",
+    "@normal/mosaic-icons": "file:../mosaic-icons",
+    "@normal/mosaic-polyfills": "file:../mosaic-polyfills",
+    "@normal/mosaic-styles": "file:../mosaic-styles",
+    "@normal/mosaic-theme": "file:../mosaic-theme",
+    "@babel/cli": "7.10.4",
+    "@babel/compat-data": "~7.10.3",
+    "@babel/core": "7.10.3",
+    "@babel/plugin-proposal-object-rest-spread": "7.10.4",
+    "@babel/plugin-transform-modules-commonjs": "7.10.4"
+    }
