@@ -2,7 +2,7 @@ on:
   push :
     branches : 
       - master
-   # paths:
+    paths-ignore:
     - mosaic/packages/mosaic-components	  
 jobs:
   node-package:
