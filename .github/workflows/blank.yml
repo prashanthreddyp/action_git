@@ -2,8 +2,8 @@ on:
   push :
     branches : 
       - master
-    paths-ignore:
-    - mosaic/packages/mosaic-components	  
+    #paths-ignore:
+    #- mosaic/packages/mosaic-components	  
 jobs:
   node-package:
     runs-on: ubuntu-latest
@@ -11,7 +11,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v1
     - name: npm build
-    - shell: bash
+      shell: bash
       run: |
         sh '''jq \'del(.devDependencies.cypress)\' package.json > _.json && mv _.json package.json 
         npm inatall
