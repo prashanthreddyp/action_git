@@ -1,23 +1,24 @@
----
-on: 
+
+on:
   push:
     branches:
-      - devops
+      - devops         
+
 jobs:
   node-package:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v1
-      - name: cypress exe  
-        run: |
-          pwd
-          cd /home/runner/work/mosaic/mosaic/packages/mosaic-components
-          npm install
-          npx cypress run --parallel --record --key h5ysqc
-          echo 'job completed'
+    - name: Checkout code
+      uses: actions/checkout@v1
+    - name: npm build
+      working-directory: ./src
+      run: |
+        sh '''jq \'del(.devDependencies.cypress)\' package.json > _.json && mv _.json package.json 
+        npm inatall
+        npm run build
+        npm run storybook:build'''
           
----	  
+	  
 	  
 		  
            
