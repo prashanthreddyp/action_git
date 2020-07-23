@@ -1,25 +1,18 @@
-name: Cypress run for testing
+name: mosaic components node packing build
 on: 
   push:
     branches:
       - master
-
-jobs:
-  cypress-run:
-    runs-on: ubuntu-16.04
-    steps:
-      - name: checkout
+jobs:       
+  node-package:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout code
         uses: actions/checkout@v1
-      - name: Cypress execution
-       # env:  
-      #      (returnStdout: true, script: "set +x && find cypress/integration/ -maxdepth 1 -type d ! -path cypress/integration/form ! -path cypress/integration/ && set -x").trim().split('\n')
-      #	      total_parallel_subfolder_tasks = 25
-       # if: (subfolders.toList().size() < total_parallel_subfolder_tasks)
-        #    subfolders_collate = total_parallel_subfolder_tasks 
-        #else: subfolders_collate = (returnStdout: true, script: "python -c \"print(int(round(float(${subfolders.toList().size()})/float(${total_parallel_subfolder_tasks})))			
+      - name: npm build
         run: |
-          cd /home/runner/work/mosaic/mosaic/packages/mosaic-components		  
+          cd /home/runner/work/mosaic/mosaic/packages/mosaic-components
+          jq 'del(.devDependencies.cypress)' package.json > _.json && mv _.json package.json 
           npm install
-          npm run cy:run
-      - name: Job status
-        run: echo "job has been completed"
+          npm run build
+          npm run storybook:build
