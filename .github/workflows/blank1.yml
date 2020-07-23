@@ -11,7 +11,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v1
       - name: Cypress execution
-	      env: (returnStdout: true, script: "set +x && find cypress/integration/ -maxdepth 1 -type d ! -path cypress/integration/form ! -path cypress/integration/ && set -x").trim().split('\n')
+        env: (returnStdout: true, script: "set +x && find cypress/integration/ -maxdepth 1 -type d ! -path cypress/integration/form ! -path cypress/integration/ && set -x").trim().split('\n')
       	    total_parallel_subfolder_tasks = 25
         if: (subfolders.toList().size() < total_parallel_subfolder_tasks)
             subfolders_collate = total_parallel_subfolder_tasks 
