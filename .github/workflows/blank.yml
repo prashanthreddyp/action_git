@@ -11,14 +11,13 @@ jobs:
       - name: checkout
         uses: actions/checkout@v1
       - name: Cypress execution
-	 env: (returnStdout: true, script: "set +x && find cypress/integration/ -maxdepth 1 -type d ! -path cypress/integration/form ! -path cypress/integration/ && set -x").trim().split('\n')
-	      total_parallel_subfolder_tasks = 25
-        if: (subfolders.toList().size() < total_parallel_subfolder_tasks)
-            subfolders_collate = total_parallel_subfolder_tasks 
-        else: subfolders_collate = (returnStdout: true, script: "python -c \"print(int(round(float(${subfolders.toList().size()})/float(${total_parallel_subfolder_tasks})))			
+        #else: subfolders_collate = (returnStdout: true, script: "python -c \"print(int(round(float(${subfolders.toList().size()})/float(${total_parallel_subfolder_tasks})))			
         run: |
           cd /home/runner/work/mosaic/mosaic/packages/mosaic-components
-		  
+	  (returnStdout: true, script: "set +x && find cypress/integration/ -maxdepth 1 -type d ! -path cypress/integration/form ! -path cypress/integration/ && set -x").trim().split('\n')
+	  total_parallel_subfolder_tasks = 25	
+	  (subfolders.toList().size() < total_parallel_subfolder_tasks)
+          subfolders_collate = total_parallel_subfolder_tasks 
           npm install
           npm run cy:run
       - name: Job status
