@@ -1,18 +1,24 @@
-name: mosaic components node packing build
-on: 
-  push:
-    branches:
-      - master
-jobs:       
-  node-package:
-      runs-on: ubuntu-latest
-      steps:
-      - name: Checkout code
+name: End-to-end tests
+on: [push]
+jobs:
+  cypress-run:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
         uses: actions/checkout@v1
-      - name: npm build
-        run: |
-          cd /home/runner/work/mosaic/mosaic/packages/mosaic-components
-          jq 'del(.devDependencies.cypress)' package.json > _.json && mv _.json package.json 
-          npm install
-          npm run build
-          npm run storybook:build
+
+      - name: Run backend
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+          run: npm run start
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v1
+        with:
+          record: true
+          start: npm run serve --prefix frontend/nix-app
+          wait-on: http://localhost:8080
+        env:
+          # pass the Dashboard record key as an environment variable
+          CYPRESS_RECORD_KEY: <key>
