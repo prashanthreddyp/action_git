@@ -1,26 +1,31 @@
-name: Cypress run for testing
-on: 
-  push:
-    branches:
-      - master
+name: Parallel Cypress Tests
+
+on: [push]
 
 jobs:
-  cypress-run:
-    runs-on: ubuntu-16.04
+  test:
+    name: Cypress run
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # the actual items in the array do not matter,
+        # just the number - to force CI to sping 3 copies
+        # of the current job in parallel
+        machines: [1, 2, 3]
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v1
-      - name: Cypress execution
-        #else: subfolders_collate = (returnStdout: true, script: "python -c \"print(int(round(float(${subfolders.toList().size()})/float(${total_parallel_subfolder_tasks})))			
-        run: |
-          cd /home/runner/work/mosaic/mosaic/packages/mosaic-components
-	  (returnStdout: true, script: "set +x && find cypress/integration/ -maxdepth 1 -type d ! -path cypress/integration/form ! -path cypress/integration/ && set -x").trim().split('\n')
-	  total_parallel_subfolder_tasks = 25	
-	  (subfolders.toList().size() < total_parallel_subfolder_tasks)
-          subfolders_collate = total_parallel_subfolder_tasks 
-          npm install
-          npm run cy:run
-      - name: Job status
-        run: echo "job has been completed"	
+
+      # because of "record" and "parallel" parameters
+      # these machines will load balance all found tests among themselves
+      - name: Cypress run
+        uses: cypress-io/github-action@v1
+        with:
+          record: true
+          parallel: true
+          group: 'Actions example'
+        env:
+          # pass the Dashboard record key as an environment variable
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}	
 		
   				         
